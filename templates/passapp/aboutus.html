@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="about us" content="">
+    <meta name="author" content="Sadanand Shinde">
+    <title>NumericAg, About Us</title>
+
+	{% load static %}
+
+     {% include "passapp/base.html" %}
+
+  </head>
+
+  <body>
+
+
+
+        <div class="container">
+        {% block content %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                 <h3 class="panel-title">
+                     <a href="http://adamchukpa.mcgill.ca/team.html" target="_blank"> McGill Precision Agriculture and Sensor Systems Research Team </a></h3>
+                </div>
+                <div class="panel-body">
+
+                  <div class="row">
+  <div class="col-sm-4">
+    <div class="card w-50">
+      <div class="card-body">
+         <img class="card-img-top" src="{% static '/pictures/PASS_title.PNG'%}" alt="PASS">
+        <p class="card-text">
+
+          </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-body">
+        <h3 class="card-title">Contact Information</h3>
+        <p class="card-text">
+
+                                <div class="panel-default">
+                                <h4>Viacheslav I. Adamchuk, Ph.D., P.E. </h4>
+                                <span>Associate Professor, Bioresource Engineering Department, McGill University</span> <br>
+                                <span>Adjunct Associate Professor, Biological Systems Engineering Department, University of Nebraska-Lincoln </span>
+
+
+                                    <div><span style="font-weight: bold;">Office:</span> MS1-094, Macdonald-Stewart Building, Macdonald Campus</div>
+                                   <div><span style="font-weight: bold;">Address:</span> 21,111 Lakeshore Road, Ste-Anne-de-Bellevue, QC, H9X 3V9, Canada</div>
+                                     <div><span style="font-weight: bold;">Phone: </span>514-398-7657</div>
+                                    <div> <span style="font-weight: bold;">Fax:</span> 514-398-7990</div>
+                                      <div> <span style="font-weight: bold;">E-mail:</span> viacheslav.adamchuk@mcgill.ca</div>
+                                     <div> <b>Home page: </b><a href="http://adamchukpa.mcgill.ca">http://adamchukpa.mcgill.ca</a></div>
+                                     <div> <span style="font-weight: bold;">University web page</span>: <a href="http://www.mcgill.ca/bioeng/faculty-and-staff/viacheslav-adamchuk">http://www.mcgill.ca/bioeng/faculty-and-staff/viacheslav-adamchuk</a> </div>
+
+                                   <h3>
+                                        <a href="{% static '/documents/McGill_PASS.pdf'%}" target="_blank" class="btn btn-primary">Get a brochure of ongoing projects </a>
+                                  {% comment %}<h3> <a href="{% static '/documents/McGill_PASS.pdf'%}" target="_blank"> Brochure of ongoing projects </a></h3>{% endcomment %}
+                                     </h3>
+                                </div>
+
+            </p>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+                    {% comment %}<table >
+                        <tr>
+                            <td>
+                                <img src="{% static '/pictures/PASS_title.PNG'%}" alt="PASS">
+                            </td>
+
+                            <td style="align-content: center; text-align: center">
+                               <!-- <p> McGill Precision Agriculture and Sensor Systems(PASS) Research Team work on various integrated projects in the Precision Agriculture domain under the supervision of Dr.Viacheslav Adamchuk.
+                                 Please feel free to contact on below details.</p> -->
+
+                                <h3>Contact Information</h3>
+                                <div class="panel-default">
+                                <h4>Viacheslav I. Adamchuk, Ph.D., P.E. </h4>
+                                <span>Associate Professor, Bioresource Engineering Department, McGill University</span> <br>
+                                <span>Adjunct Associate Professor, Biological Systems Engineering Department, University of Nebraska-Lincoln </span>
+
+                                 <ul>
+                                    <div><span style="font-weight: bold;">Office:</span> MS1-094, Macdonald-Stewart Building, Macdonald Campus</div>
+                                   <div><span style="font-weight: bold;">Address:</span> 21,111 Lakeshore Road, Ste-Anne-de-Bellevue, QC, H9X 3V9, Canada</div>
+                                     <div><span style="font-weight: bold;">Phone: </span>514-398-7657</div>
+                                    <div> <span style="font-weight: bold;">Fax:</span> 514-398-7990</div>
+                                      <div> <span style="font-weight: bold;">E-mail:</span> viacheslav.adamchuk@mcgill.ca</div>
+                                     <div> <b>Home page: </b><a href="http://adamchukpa.mcgill.ca">http://adamchukpa.mcgill.ca</a></div>
+                                     <div> <span style="font-weight: bold;">University web page</span>: <a href="http://www.mcgill.ca/bioeng/faculty-and-staff/viacheslav-adamchuk">http://www.mcgill.ca/bioeng/faculty-and-staff/viacheslav-adamchuk</a> </div>
+                                 </ul>
+
+                                  <h3> <a href="{% static '/documents/McGill_PASS.pdf'%}" target="_blank"> Brochure of ongoing projects </a></h3>
+
+                                </div>
+                            </td>
+                        </tr>
+                    </table>{% endcomment %}
+                </div>
+        </div>
+
+          {% endblock %}
+        </div> <!-- conatiner -->
+
+        {% include "passapp/footer.html" %}
+
+    </body>
+
+</html>

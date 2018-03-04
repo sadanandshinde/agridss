@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+   table {
+  border-collapse: collapse;
+}  td, th {
+  width: 4rem;
+  height: 2rem;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+th {
+  background: lightblue;
+  border-color: white;
+}
+
+</style>
+     {% load static %}
+    <script src="http://cdn.pydata.org/bokeh/release/bokeh-0.8.1.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.pydata.org/bokeh/release/bokeh-0.8.1.min.css">
+
+     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+    <title>NumericAg Results,DSS for Precision Agriculture, </title>
+    <!-- Bootstrap core CSS -->
+    <link href="{% static '/bootstrap.min.css'%}" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+
+
+    <!-- Custom styles for this template -->
+    <!--<link href="offcanvas.css" rel="stylesheet">-->
+		 <link rel="stylesheet" type="text/css" href="{% static '/offcanvas.css' %}" />
+    <!--Just for debugging purposes. Don't actually copy these 2 lines! -->
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <![endif]-->
+</head>
+<body>
+  {% include "passapp/base.html" %}
+<div class="container">
+
+      <div class="row row-offcanvas row-offcanvas-right">
+{#          <table class="table">#}
+{#            {% if resultset %}#}
+{#                 <tr class="bg-info">#}
+{#                    <th>Id</th>#}
+{#                    <th>Champ</th>#}
+{#                    <th>AWDR</th>#}
+{#                     <th>Till Type</th>#}
+{#                    <th>Prev. Crop</th>#}
+{#                     <th>Prev N contrib.</th>#}
+{#                    <th>Soil Type</th>#}
+{##}
+{##}
+{#                </tr>#}
+{#                {% for rs in resultset %}#}
+{#                    <tr >#}
+{#                    <td> {{ rs.id }}</td>#}
+{#                    <td> {{ rs.Champ }}</td>#}
+{#                     <td> {{ rs.AWDR }}</td>#}
+{#                    <td> {{ rs.TillType }}</td>#}
+{#                    <td> {{ rs.PrevCrop }}</td>#}
+{#                    <td> {{ rs.PrevContribN_cls }}</td>#}
+{#                    <td> {{ rs.SoilType }}</td>#}
+{#                    </tr>#}
+{#                {% endfor %}#}
+{#              {% else %}#}
+{#              <p> No matching records found.</p>#}
+{#        {% endif %}#}
+{#          </table>#}
+
+          </div>
+        <h3> Results: </h3>
+            <table class="table">
+                <tr>
+               <td><a href="{% url 'downlaodCSV' %}"> download result &raquo;</a> </td>
+                </tr>
+                <tr>
+                    <td>
+                         <div>{{dfresult | safe}}</div>
+                    </td>
+                </tr>
+            </table>
+
+         <br>
+ <h3> Profit Function </h3><br>
+        <div>
+            {{ pfModel|safe }}
+        </div>
+    </div>
+
+ <h3> Profit Classes </h3><br>
+        <div>
+            {{ profClasses|safe }}
+        </div>
+
+
+</body>
+</html>

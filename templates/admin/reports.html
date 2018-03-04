@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <title>Reports | NumericAg</title>
+
+
+    <!-- Custom styles for this template -->
+
+{% include "passapp/base.html" %}
+{% block javascript %}
+
+{% endblock %}
+
+</head>
+<body>
+
+<div class="container">
+{% block content %}
+   <form role= "form" action="reportview" method="post" name="report_form" id="report_form">
+                        {% csrf_token %}
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <span class="glyphicon glyphicon-tasks"></span> Select your choices for report generation </h3>
+                </div>
+                <div class="panel-body">
+                     <p>
+               {% if messages %}
+
+                        {% for message in messages %}
+                          <div id="output2"{% if message.tags == "error" %} class="label label-danger"{%  else %} class="label label-success" {% endif %}>{{ message }} </div>
+                        {% endfor %}
+
+                    {% endif %}
+        </p>
+
+                      	    <div class="row">
+
+                                <div class="col-xs-4 col-sm-4 col-md-4">
+			    					<div class="form-group">
+			    					<label for="reqType">Request Type</label>
+									 <select class="form-control" id="reqType" name="reqType">
+							            <option value="viewRequest">View User Request</option>
+							            <option value="viewTrails">View Fertility Trials</option>
+                                         <option value="viewTrans">View Processed Requests </option>
+                                     </select>
+			    					</div>
+
+			    				</div>
+                            {% if request.session.isstaff  %}
+                                 <div class="col-xs-4 col-sm-4 col-md-4">
+			    					<div class="form-group">
+			    						<label for="user">For User</label>
+
+										<select class="form-control" id="user" name="user">
+                                            <option value="None">All</option>
+									          {% for user in userList %}
+                                                 <option value="{{user.id}}">{{user.email}}</option>
+                                            {%  endfor %}
+
+										</select>
+			    					</div>
+
+			    				</div>
+                             {% endif %}
+                                <div class="col-xs-4 col-sm-4 col-md-4">
+			    					<div class="form-group">
+                                        <label for="user">Action</label>
+                                        <button class="btn btn-md btn-primary btn-block" type="submit">Submit</button>
+                                        </div>
+                                    </div>
+
+							</div>
+
+
+            </div>
+</div>
+
+   <div class="panel panel-info">
+	<div class="panel-heading"> <span class="glyphicon glyphicon-list"></span> View Results  </div>
+	<div class="panel-body">
+
+             {% if trailList %}
+                 <div class ="row">
+                  <div class="col-md-8">
+                      Your are selected to view user database trials:
+                  </div>
+                    <div class="col-md-8">
+                         {% if request.session.isstaff  %}
+                    <a href="{% url 'downloadAllDBTrails' %}" class="btn btn-primary">Download Trials</a>
+                    {% endif %}
+                     </div>
+                 </div>
+                 <div>
+
+                 </div>
+            <div class="table-responsive">
+            <table class="table table-striped">
+                 <tr>
+
+                    <th>Trial Id</th>
+                    <th>Site Reference</th>
+                     <th>Soil Type</th>
+                    <th>SOM</th>
+                    <th>Tillage System</th>
+                    <th>Previous Crop</th>
+                    <th>AWDR</th>
+                    <th>N rate</th>
+                    <th>Yield</th>
+                    <th>Year</th>
+                    <th>Source</th>
+                     <th>Verified</th>
+                </tr>
+
+                {% for trail in trailList %}
+
+
+                    <tr>
+                        <td><a href="#demo" data-toggle="collapse">{{ trail.id}}</a></td>
+                        <td><a href="#demo" data-toggle="collapse">{{ trail.SiteFieldId.Site_Field_Name}}</a></td>
+                        <td><a href="#demo" data-toggle="collapse">{{ trail.SoilType}}</a></td>
+                        <td><a href="#demo" data-toggle="collapse">{{ trail.SOM}}</a></td>
+                        <td><a href="#demo" data-toggle="collapse">{{ trail.TillType}}</a></td>
+                        <td><a href="#demo" data-toggle="collapse">{{ trail.PrevCrop}}</a></td>
+                        <td><a href="#demo" data-toggle="collapse">{{ trail.AWDR}}</a></td>
+                        <td><a href="#demo" data-toggle="collapse">{{ trail.Nrate}}</a></td>
+                        <td><a href="#demo" data-toggle="collapse">{{  trail.Yield}}</a></td>
+                        <td><a href="#demo" data-toggle="collapse">{{ trail.Year}}</a></td>
+                        <td><a href="#demo" data-toggle="collapse">{{ trail.Source}}</a></td>
+                        <td><a href="#demo" data-toggle="collapse">{{ trail.Verified}}</a></td>
+                     </tr>
+
+                 {% endfor %}
+                 </table>
+                 </div>
+
+              {% elif reqList %}
+                         <div class="table-responsive">
+            <table class="table table-striped">
+                   <div>Your are selected to view Input Requests:</div>
+                 <tr>
+                    <th> Request Id</th>
+                    <th>User</th>
+                   <th>Crop</th>
+                  <th>Season</th>
+                 <th>Soil Type</th>
+                 <th>Till Type</th>
+                 <th>Parcipitation (AWDR)</th>
+                 <th>Temperature (CHU)</th>
+                 <th>Previous Crop</th>
+                 <th>Price (Mean/SD) </th>
+                 <th>Cost (Mean/SD)</th>
+                 <th>Submitted Date</th>
+
+
+                 </tr>
+
+                 {% for request in reqList %}
+                     <tr>
+                         <td> {{ request.id }} </td>
+                        <td> {{ request.user.username }} </td>
+                        <td> {{ request.current_crop }} </td>
+                          <td> {{ request.season }} </td>
+                        <td> {{ request.soiltype }} </td>
+                        <td> {{ request.tilltype }} </td>
+                        <td> {{ request.climate }} </td>
+                          <td> {{ request.CHU }} </td>
+                         <td> {{ request.prev_crop }} </td>
+                        <td> {{ request.price_mean }}/{{ request.price_std }} </td>
+                         <td> {{ request.costmean }}/{{ request.coststd }} </td>
+                        <td> {{ request.request_date }} </td>
+
+                     </tr>
+                 {% endfor %}
+                 </table>
+                 </div>
+
+             {% elif transList %}
+                  <div class="table-responsive">
+            <table class="table table-striped">
+                   <div>You are selected to view processed requests:</div>
+                 <tr>
+                 <th>Transaction Id</th>
+                 <th>Request Id</th>
+                 <th>Status</th>
+                  <th>Processing Date </th>
+                  <th>Emailed Results</th>
+                 <th>Processing Time (min.)</th>
+                 </tr>
+                 {% for trans in transList %}
+
+                     <tr>
+                     <td>{{ trans.id }}</td>
+                      <td>{{ trans.usersite.id }}</td>
+                      <td>{{ trans.status }}</td>
+                      <td>{{ trans.creation_date }}</td>
+                      <td>{{ trans.isEmailSent }}</td>
+                      <td>{{ trans.request_process_time }}</td>
+                     </tr>
+
+
+                 {% endfor %}
+             {% else %}
+                 <div>No data available</div>
+                  </table>
+                </div>
+            {% endif %}
+
+
+        </div>
+    </div>
+   </form>
+{% endblock %}
+</div>
+
+{% include "passapp/footer.html" %}
+</body>
+
+</html>

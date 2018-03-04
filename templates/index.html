@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PASS Data</title>
+</head>
+<body>
+<h1> select dataset Id to draw a scatter chart </h1>
+
+    {% if latest_dataset_list %}
+ <table width="500",>
+          <tr>
+        {% for dataset in latest_dataset_list %}
+            <td cellspacing ='2' cellpadding = '2'>
+
+                <a href="{% url 'detail' dataset.id %}">{{ dataset.id }}</a></td>
+        {% endfor %}
+  </tr>
+        </table>
+    {% else %}
+        <p>No records present in database.</p>
+    {% endif %}
+</body>
+</html>

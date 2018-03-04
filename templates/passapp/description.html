@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NumericAg, Description</title>
+{% load static %}
+
+     {% include "passapp/base.html" %}
+
+  </head>
+
+  <body>
+
+
+
+           <div class="container theme-showcase" role="main">
+        {% block content %}
+            <div class="panel panel-primary">
+             <div class="panel-heading">
+                   <h3 class="panel-title"> Description of the input form parameters
+                   </h3>
+                 </div>
+             <div class="panel-body">
+             <ul><h4> Soil Type</h4>
+                <li>
+                    <span>
+                    The soil characteristics or quality of soil, there are 16 options to specify the soil category corresponding to your field/farm.
+                    <br> However, if you dont know the type of soil you have, please use the <a href="http://www.info-sols.ca/index.php">http://www.info-sols.ca </a>  service to determine soil characteristics.
+                    </span>
+                </li>
+            </ul>
+              <ul>
+                   <h4> Previous Crop</h4>
+                   <li>
+                    <span>
+                        Previously harvested crop at the given farm, this will be used to determine the nutrient contribution of fertilizer application.
+                        <br> The previous crop to previous nutrient contribution will be used as one of the factor in estimating the results.
+                    </span>
+                </li>
+              </ul>
+
+
+
+            <h4> Tillage System</h4>
+
+             <h4> Soil Organic Matter SOM (%)</h4>
+
+               <h4> Precipitation (AWDR, mm)</h4>
+
+                <h4>Temperature (CHU, °C) </h4>
+             </div>
+
+           </div>
+
+
+
+          {% endblock %}
+        </div> <!-- conatiner -->
+
+        {% include "passapp/footer.html" %}
+
+    </body>
+
+</html>
+</html>

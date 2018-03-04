@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     {% load static %}
+    <script src="http://cdn.pydata.org/bokeh/release/bokeh-0.8.1.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.pydata.org/bokeh/release/bokeh-0.8.1.min.css">
+
+     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+    <title>DSS for Precision Agriculture, Fertilizer Optimization </title>
+    <!-- Bootstrap core CSS -->
+    <link href="{% static '/bootstrap.min.css'%}" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+
+    <!-- Custom styles for this template -->
+    <!--<link href="offcanvas.css" rel="stylesheet">-->
+		 <link rel="stylesheet" type="text/css" href="{% static '/offcanvas.css' %}" />
+    <!--Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+  {% include "passapp/base.html" %}
+
+  <div class="container">
+
+<h1>Nitrogen Application with respect to Yield for Dataset Id :{{ dataset.id }}</h1><br>
+
+<table class ="table" cellpadding="5" cellspacing="5">
+    <tr class="bg-info">
+    <th>Yield0</th>
+    <th>Yield50</th>
+    <th>Yield100</th>
+    <th>Yield150</th>
+    <th>Yield200</th>
+        <th>Mean Y</th>
+        <th>SD Y</th>
+        <th>Variance Y</th>
+    </tr>
+    <tr>
+        <td>{{dataset.Yld0}}</td>
+        <td>{{dataset.Yld50}}</td>
+        <td>{{dataset.Yld100}}</td>
+        <td>{{dataset.Yld150}}</td>
+        <td>{{dataset.Yld200}}</td>
+         <td>{{miny}}</td>
+         <td>{{sdy}}</td>
+         <td>{{vary}}</td>
+    </tr>
+
+</table>
+<table >
+    <tr>
+        <td>{{ html |safe }}</td>
+        <td valign="top">
+            <table class="table">
+                <tr>
+                    <th>Champ</th>
+                    <th>AWDR</th>
+                    <th>Prev. Crop</th>
+                    <th>Soil Type</th>
+                    <th>Soil Texture</th>
+                    <th>Till Type</th>
+                </tr>
+                <tr>
+                    <td>{{ dataset.Champ }}</td>
+                    <td>{{ dataset.AWDR }}</td>
+                    <td>{{ dataset.PrevCrop }}</td>
+                    <td>{{ dataset.SoilType }}</td>
+                    <td>{{ dataset.SoilTexture_cls }}</td>
+                    <td>{{ dataset.TillType }}</td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+<a href="{% url 'index'  %}">home page</a>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="Sadanand Shinde">
+    <!--<link rel="icon" href="../../favicon.ico">-->
+
+    <title>NumericAg,Home</title>
+
+	{% load static %}
+    {% include "passapp/base.html" %}
+
+      <!--  javascript function to add option value as years to season variable-->
+      <script type="text/javascript">
+            $(document).ready(function(){
+          //default hide the other text values and show only if other is selected as value
+           $("input#somother").hide();
+           $("input#chuother").hide();
+           $("input#awdrother").hide();
+
+            //code to show/hide som other textbox value based on the user selection at SOM class
+            $('#som').change(function() {
+            var selected = $(this).val();
+            if(selected == 'other'){
+            $('#somother').show();
+            }
+            else{
+                $('#somother').hide();
+            };
+            });
+
+                //code to show/hide chu other textbox value based on the user selection at CHU class
+            $('#chu').change(function() {
+            var selected = $(this).val();
+            if(selected == 'other'){
+            $('#chuother').show();
+            }
+            else{
+                $('#chuother').hide();
+            };
+            });
+
+                 //code to show/hide chu other textbox value based on the user selection at CHU class
+            $('#climate').change(function() {
+            var selected = $(this).val();
+            if(selected == 'other'){
+            $('#awdrother').show();
+            }
+            else{
+                $('#awdrother').hide();
+            };
+            });
+       });
+	function addSeasonOption(){
+	var max = new Date().getFullYear(),
+     min = max - 7,
+    select = document.getElementById('season');
+
+	for (var i = max; i>=min; i--){
+		var opt = document.createElement('option');
+		opt.value = i;
+		opt.innerHTML = i;
+		select.appendChild(opt);
+		}
+		}
+		window.onload = addSeasonOption;
+	</script>
+    <style>
+
+    fieldset.scheduler-border {
+    border: solid 1px #DDD !important;
+    padding: 0 10px 10px 10px;
+    border-bottom: none;
+
+    }
+
+    legend.scheduler-border {
+    width: auto !important;
+    border: none;
+    font-size: 16px;
+    font: inherit;
+    font-weight: bold;
+    line-height: 1.42857143;
+    color: #555;
+    padding-top: 5px;
+    }
+
+
+    </style>
+
+
+
+
+
+  </head>
+
+  <body>
+
+
+    <div class="container theme-showcase" role="main">
+
+      <!-- Main jumbotron for a primary marketing message or call to action -->
+      <div class="jumbotron">
+       <!--  <h2>Welcome to Precision Agriculture!</h2>-->
+        <p> <strong>NumericAg</strong> is a decision support system designed to help farmers and their consultants identify the least risky site-specific rate of key agricultural inputs, such as nitrogen fertilizer.
+            This numeric simulation process integrates previous fertility trial records, information about local conditions and economic considerations to estimate probable net return over cost of fertilization.
+            Please enter your data below and submit the form. Certain inputs mean maximum accuracy in results.
+		</p>
+
+	 </div> <!--'jumbotron'-->
+        {% block content %}
+
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+               <h3 class="panel-title">Please select/fill the most appropriate option specific to your farming conditions and click on submit. &nbsp;<small>(Results will be sent on the registered email Id)</small></h3>
+                </div>
+                <div class="panel-body">
+                    <p>
+                        <small>  <a href="description"> Please click on the question marks(?) to find the descriptions of the corresponding parameters</a></small>
+                    </p>
+                  {% if messages %}
+
+                        {% for message in messages %}
+                          <div id="output2"{% if message.tags == "error" %} class="label label-danger"{%  else %} class="label label-success" {% endif %}>{{ message }} </div>
+                        {% endfor %}
+
+                    {% endif %}
+
+                      <form role= "form" action="{% url 'saveUserRequest' %}" method="post">
+                        {% csrf_token %}
+
+
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+
+										<label for="fertilizer">Fertilizer</label>
+										<select class="form-control" id="fertilizer" name="fertilizer" >
+											<option value="Nitrogen">Nitrogen</option>
+										</select>
+
+
+                                </div>
+                            </div>
+
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+									<div class="form-group">
+									<label for="currentcrop">Crop</label>
+									<select class="form-control" id="currentcrop" name="currentcrop" >
+									<option value="Corn">Corn</option>
+									</select>
+									</div>
+
+								</div>
+
+
+			    			</div>
+
+                      <fieldset class="scheduler-border">
+                          <legend class="scheduler-border">Location and Year</legend>
+                          <div class="row">
+
+
+
+                             <div class="col-xs-4 col-sm-4 col-md-4">
+			    					<div class="form-group">
+                                      <label for="latitude" > Latitude
+										    <a href="http://gps-coordinates.org/my-location.php"  target = "_blank">
+                                              <span title="click here on the '?' to find the latitide/longitude of your site" class="glyphicon glyphicon-question-sign"></span></a>
+									        </a>
+                                      </label>
+                                        <input class="form-control" type="text" id="latitude" name="latitude" placeholder ="Latitude of your farm location (optional) ">
+			    					</div>
+                             </div>
+
+                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                        <label for ="longitude"> Longitude
+                                             <a href="http://gps-coordinates.org/my-location.php"  target = "_blank">
+                                              <span title="click here on the '?' to find the latitide/longitude of your site" class="glyphicon glyphicon-question-sign"></span></a>
+									        </a>
+                                         </label>
+			    					<div class="form-group">
+										<input class="form-control" type="text" id="longitude" name="longitude" placeholder ="Longitude of your farm (optional)">
+			    					</div>
+                            </div>
+
+                            <div class="col-xs-4 col-sm-4 col-md-4">
+			    					<div class="form-group">
+			    							<label for="season">Growing Season
+                                                <span title="the growing year" class="glyphicon glyphicon-question-sign"></span>
+                                            </label>
+											<select class="form-control" id="season" name="season" >
+
+											</select>
+			    					</div>
+                            </div>
+
+
+
+
+                          </div>
+
+
+                      </fieldset>
+
+                       <fieldset class="scheduler-border">
+
+                             <legend class="scheduler-border"> Soil and Climate</legend>
+                      	    <div class="row">
+
+                                 <div class="col-xs-4 col-sm-4 col-md-4">
+			    					<div class="form-group">
+			    						<label for="soiltype">Soil Type
+                                        	<a href="http://www.info-sols.ca"  target = "_blank">
+										  <span title="Click on the ? to lookup your site specific soil type" class="glyphicon glyphicon-question-sign"></span></a>
+                                        </label>
+
+										<select class="form-control" id="soilType" name="soilType">
+									        <option value="Clay" selected="selected">Clay</option>
+									        <option value="Clay loam">Clay loam</option>
+									        <option value="Fine sand">Fine sand</option>
+									        <option value="Fine sandy loam">Fine sandy loam</option>
+									        <option value="Heavy clay">Heavy clay</option>
+									        <option value="Loam">Loam</option>
+									        <option value="Loamy fine sand">Loamy fine sand</option>
+									        <option value="Loamy sand">Loamy sand</option>
+									        <option value="Sand">Sand</option>
+									        <option value="Sandy clay">Sandy clay</option>
+									        <option value="Sandy clay loam">Sandy clay loam</option>
+									        <option value="Sandy loam">Sandy loam</option>
+									        <option value="Silt loam">Silt loam</option>
+									        <option value="Silty clay">Silty clay</option>
+									        <option value="Silty clay loam">Silty clay loam</option>
+										</select>
+			    					</div>
+
+			    				</div>
+
+                                 <div class="col-xs-4 col-sm-4 col-md-4">
+			    					<div class="form-group">
+                                       <label for="previouscrop">Previous Crop
+                                           <a href="description#previouscrop"  target = "_blank">
+                                         <span title="Previous harvested crop at the farm" class="glyphicon glyphicon-question-sign"></span>
+                                        </a>
+                                       </label>
+									 <select class="form-control" id="prevCrop" name="prevCrop">
+
+                                         <!--categorize all the crops according ot its nutrient contribution such as
+                                         (Low: corn, cereals, Moderate: Soybean, forage and Strong: Grass, GreenPeas)  -->
+									     <option value="Low">Low nutrient contribution (e.g., Corn, Potatoes etc.)</option>
+                                        <option selected="selected"  value="Moderate">Moderate nutrient contribution (e.g., Soybean, Forage etc.)</option>
+									     <option value="Strong"> Strong nutrient contribution (e.g., Legumes, GreenPeas etc.) </option>
+
+
+									</select>
+			    					</div>
+                             </div>
+
+                                 <div class="col-xs-4 col-sm-4 col-md-4">
+			    					<div class="form-group">
+			    					<label for="tillage">Tillage System
+                                         <a href="description#tillage"  target = "_blank">
+                                        <span title="The applied tillage system at the farm" class="glyphicon glyphicon-question-sign">
+                                        </span>
+                                             </a>
+                                    </label>
+									 <select class="form-control" id="tillType" name="tillType" placeholder="Till Type">
+							            <option value="Conventional">Conventional</option>
+							            <option value="No till">No till</option>
+
+                                     </select>
+			    					</div>
+
+			    				</div>
+
+							</div>
+
+                            <div class="row">
+
+                                <div class="col-xs-4 col-sm-4 col-md-4">
+									<div class="form-group">
+
+                                         <label for="som" > Soil Organic Matter SOM (%)
+                                            <a>
+                                           <span title="The soil organic mattter of your farm's soil" class="glyphicon glyphicon-question-sign"></span>
+                                         </a>
+                                         </label>
+
+                                          <select class="form-control" id="som" name="som" >
+							                <option value="0-2">Very Low (0% - 2%)</option>
+							                <option value="2-4">Low (2% - 4%)</option>
+                                             <option selected="selected" value="4-6">Medium (4% - 6%)</option>
+                                             <option value="6-10">High (6% - 10%)</option>
+                                             <option value="10-15">Very High (> 10%)</option>
+                                              <option value="other">Other</option>
+                                        </select>
+                                         <input class="form-control" type="number" min="1" max="15" step="0.5"id="somother" name="somother" placeholder="e.g., 2, 4, 6 ... 12">
+
+									</div>
+
+								</div>
+
+
+			    				<div class="col-xs-4 col-sm-4 col-md-4">
+			    					<div class="form-group">
+
+									<label for="local climate">Precipitation (AWDR, mm)
+                                            <a href="description#precipitation"  target = "_blank">
+                                            <span title="The rain forecast at the farm region" class="glyphicon glyphicon-question-sign">
+
+                                            </span>
+                                            </a>
+                                    </label>
+									<select class="form-control" id="climate" name="climate" >
+                                          <option value="0-30">Very Dry </option>
+									    <option value="30-60">Dry </option>
+                                        <option selected="selected" value="60-90">Medium Conditions</option>
+                                        <option value="90-120">Wet </option>
+                                        <option value="120-150">Very Wet </option>
+                                        <option value="other">Other</option>
+									</select>
+                                         <input class="form-control" type="number"  step="5" min="0" max="150" id="awdrother" name="awdrother" placeholder="e.g., 30, 50, 90, 120 ... 150 mm">
+			    					</div>
+			    				</div>
+
+                                <div class="col-xs-4 col-sm-4 col-md-4">
+			    					<div class="form-group">
+
+									<label for="local climate">Temperature (CHU, °C)
+                                          <a href="description#temperature"  target = "_blank">
+                                        <span title="The temperature forecast at the farm region" class="glyphicon glyphicon-question-sign"></span>
+                                    </a>
+                                    </label>
+									<select class="form-control" id="chu" name="chu" >
+                                         <option value="500-600">Cold </option>
+									    <option value="600-700">Warm </option>
+                                        <option selected="selected" value="700-800">Medium Conditions</option>
+                                        <option value="800-900">Hot </option>
+                                        <option value="900-1000">Very Hot </option>
+                                        <option value="other">Other</option>
+									</select>
+
+                                    <input class="form-control" type="number" step="50" min="500" max="1200" id="chuother" name="chuother" placeholder=" e.g., 500, 600, 700 ... 1000 °C">
+
+                                    </div>
+			    				</div>
+
+						</div>
+                       </fieldset>
+
+
+                         <fieldset class="scheduler-border">
+                             <legend class="scheduler-border"> Price and Cost</legend>
+                             <div class="row">
+
+
+									<div class="col-xs-6 col-sm-6 col-md-6">
+                                        <label for="price">Yield Price (USD) $/tonne: Mean
+                                         <a>
+                                             <span title="The average mean price of selected crop price" class="glyphicon glyphicon-question-sign"></span>
+                                         </a>
+                                        </label>
+			    					<div class="form-group">
+										<input class="form-control" type="number"  step="0.01" id="meanprice" name="meanprice" placeholder ="Mean" value="{{ cornPrice.mean }}">
+			    					</div>
+									</div>
+
+									<div class="col-xs-6 col-sm-6 col-md-6">
+                                        <label for="meancost">Fertilizer Cost (USD) $/kg: Mean
+                                              <a>
+                                            <span title="The average mean cost of selected fertilizer" class="glyphicon glyphicon-question-sign"></span>
+                                              </a>
+
+                                        </label>
+			    					<div class="form-group">
+											<input class="form-control" type="number" step="0.01" id="meancost" name="meancost" placeholder ="Mean" value="{{ Ncost.mean }}">
+			    					</div>
+									</div>
+
+
+						</div>
+
+                      	<div class="row">
+
+
+									<div class="col-xs-6 col-sm-6 col-md-6">
+                                        <label for="price">Yield Price (USD) $/tonne: Standard Deviation
+                                        <a>
+                                             <span title="The average standard deviation of price of selected crop" class="glyphicon glyphicon-question-sign"></span>
+
+                                        </a>
+                                        </label>
+			    					<div class="form-group">
+										<input class="form-control" type="number"  step="0.01" id="stdprice" name="stdprice" placeholder ="Standard Deviation" value="{{ cornPrice.std }}">
+			    					</div>
+									</div>
+
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                        <label for="stdcost">Fertilizer Cost (USD) $/kg: Standard Deviation
+                                            <a>
+                                        <span title="The average standard deviation of selected fertilizer cost" class="glyphicon glyphicon-question-sign"></span>
+                                        </a>
+                                        </label>
+			    					<div class="form-group">
+										<input class="form-control" type="number" step="0.01"  id="stdcost"  name ="stdcost" placeholder ="Standard Deviation" value="{{ Ncost.std}}">
+			    					</div>
+									</div>
+
+                        </div>
+                         </fieldset>
+                            <br>
+			    			<button class="btn btn-md btn-primary btn-block" type="submit">Submit</button>
+
+			    		</form>
+
+			    	</div>
+	    		</div>
+            {% endblock %}
+
+
+
+    </div> <!-- /container -->
+    {% include "passapp/footer.html" %}
+  </body>
+</html>
